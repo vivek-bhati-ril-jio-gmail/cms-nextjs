@@ -21,7 +21,6 @@ const testConnection = async () => {
     console.log('Successfully connected to the MySQL database.');
   } catch (error) {
     console.error('Error connecting to MySQL:', error);
-    process.exit(1); // Exit the process if the database connection fails
   }
 };
 

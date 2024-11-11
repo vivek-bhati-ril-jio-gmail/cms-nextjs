@@ -1,34 +1,53 @@
-// app/api/auth/login/route.js
+// app/api/auth/signup/route.js
+export const runtime = 'nodejs';  // Ensures the route uses Node.js runtime
+
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
-import Users from '../../../lib/models/User';
+import { NextResponse } from 'next/server';
+import Users from '../../../lib/models/User';  // Adjust path as needed
+import { Op } from 'sequelize';  // Import Sequelize operators
 
 export async function POST(req) {
-  const { username, email, password } = await req.json();
+  const { username, password, email, role } = await req.json();
+
+  // Ensure all required fields are provided
+  if (!username || !email || !password || !role) {
+    return NextResponse.json({ msg: 'Please provide all: username, email, and password' }, {
+      status: 400,
+    });
+  }
 
   try {
-    const user = await Users.findOne({ where: { username } });
+    // Check if the user already exists (based on username or email)
+    const existingUser = await Users.findOne({
+      where: {
+        [Op.or]: [{ username }, { email }],
+      },
+    });
 
-    if (!user) {
-      user = await Users.findOne({ where: { username } });
-      if (!user) {
-        return new Response(JSON.stringify({ msg: 'No user exists' }), { status: 401 });
-      }
+    if (existingUser) {
+      return NextResponse.json({ msg: 'User with this username or email already exists' }, {
+        status: 400,
+      });
     }
 
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      return new Response(JSON.stringify({ msg: 'Invalid password' }), { status: 401 });
-    }
+    // Hash the password before saving to the database
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-    const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    // Create a new user
+    const newUser = await Users.create({
+      username,
+      email,
+      password: hashedPassword,
+      role,
+      isActive: true,   // Assuming new users are active by default
+      isBlocked: false, // Assuming new users are not blocked by default
+    });
 
-    return new Response(
-      JSON.stringify({ jwt: token, role: user.role }),
-      { status: 200 }
-    );
+    // Return success response with the new user details
+    return NextResponse.json({ msg: 'User created successfully', user: newUser }, { status: 201 });
+
   } catch (err) {
     console.error(err);
-    return new Response(JSON.stringify({ msg: 'Server error' }), { status: 500 });
+    return NextResponse.json({ msg: 'Error creating user' }, { status: 500 });
   }
 }

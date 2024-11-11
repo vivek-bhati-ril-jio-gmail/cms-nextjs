@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 
 export default function Login() {
   const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const router = useRouter();
@@ -18,16 +19,16 @@ export default function Login() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ username, email, password }),
     });
 
     const data = await res.json();
 
     if (res.ok) {
-      document.cookie = `auth_token=${data.jwt}; path=/; max-age=${60 * 60}`;
-      router.push('/dashboard');
+      document.cookie = `auth_token=${data.jwt}; path=/; max-age=${60 * 60}`; // Store JWT token in cookie
+      router.push('/dashboard');  // Redirect user to dashboard
     } else {
-      setError(data.msg);
+      setError(data.msg);  // Set error message if login failed
     }
   };
 
@@ -41,6 +42,12 @@ export default function Login() {
           placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <input
           type="password"
