@@ -1,0 +1,115 @@
+/* signup.module.css */
+
+/* Center the form vertically and horizontally on the page */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f7fc;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Form wrapper with padding, background, and border radius */
+.formWrapper {
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+}
+
+/* Heading style */
+.title {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+/* Error message style */
+.error {
+  color: #ff4d4f;
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+/* Form styling */
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Input group styling (label + input) */
+.inputGroup {
+  margin-bottom: 20px;
+}
+
+/* Label style */
+.inputGroup label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Input field style */
+.input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: #fafafa;
+  color: #333;
+  transition: border-color 0.3s ease;
+}
+
+/* Focus state for inputs */
+.input:focus {
+  border-color: #007bff;
+  outline: none;
+  background-color: #fff;
+}
+
+/* Submit button styling */
+.submitBtnWrapper {
+  margin-top: 20px;
+}
+
+.submitBtn {
+  background-color: #007bff;
+  color: #fff;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+/* Button hover effect */
+.submitBtn:hover {
+  background-color: #0056b3;
+}
+
+/* Sign in prompt text */
+.signInPrompt {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 1rem;
+  color: #555;
+}
+
+/* Link style for login */
+.loginLink {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.loginLink:hover {
+  text-decoration: underline;
+}

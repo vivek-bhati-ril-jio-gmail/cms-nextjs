@@ -1,8 +1,8 @@
-export const runtime = 'nodejs';
 'use client';
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import styles from './page.module.css';  // Make sure to create a CSS Module file
 
 export default function SignUp() {
   const [username, setUsername] = useState('');
@@ -36,7 +36,7 @@ export default function SignUp() {
     const data = await res.json();
 
     if (res.ok) {
-      // Redirect to the login page or dashboard after successful signup
+      // Redirect to the login page after successful signup
       router.push('/login');
     } else {
       setError(data.msg || 'Error creating user');
@@ -46,61 +46,71 @@ export default function SignUp() {
   };
 
   return (
-    <div>
-      <h1>Create Account</h1>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="role">Role</label>
-          <select
-            id="role"
-            value={role}
-            onChange={(e) => setRole(e.target.value)}
-          >
-            <option value="authenticated">Authenticated</option>
-            <option value="content_editor">Content Editor</option>
-            <option value="administrator">Administrator</option>
-          </select>
-        </div>
-        <div>
-          <button type="submit" disabled={loading}>
-            {loading ? 'Signing up...' : 'Sign Up'}
-          </button>
-        </div>
-      </form>
-      <p>
-        Already have an account? <a href="/login">Login here</a>.
-      </p>
+    <div className={styles.container}>
+      <div className={styles.formWrapper}>
+        <h1 className={styles.title}>Create an Account</h1>
+        {error && <p className={styles.error}>{error}</p>}
+        <form onSubmit={handleSubmit} className={styles.form}>
+          <div className={styles.inputGroup}>
+            <label htmlFor="username">Username</label>
+            <input
+              type="text"
+              id="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className={styles.input}
+              required
+            />
+          </div>
+          <div className={styles.inputGroup}>
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className={styles.input}
+              required
+            />
+          </div>
+          <div className={styles.inputGroup}>
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className={styles.input}
+              required
+            />
+          </div>
+          <div className={styles.inputGroup}>
+            <label htmlFor="role">Role</label>
+            <select
+              id="role"
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
+              className={styles.input}
+            >
+              <option value="authenticated">Authenticated</option>
+              <option value="content_editor">Content Editor</option>
+              <option value="administrator">Administrator</option>
+            </select>
+          </div>
+          <div className={styles.submitBtnWrapper}>
+            <button
+              type="submit"
+              className={styles.submitBtn}
+              disabled={loading}
+            >
+              {loading ? 'Signing up...' : 'Sign Up'}
+            </button>
+          </div>
+        </form>
+        <p className={styles.signInPrompt}>
+          Already have an account? <a href="/login" className={styles.loginLink}>Login here</a>.
+        </p>
+      </div>
     </div>
   );
 }

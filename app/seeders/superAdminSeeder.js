@@ -1,5 +1,5 @@
 // lib/seeders/superAdminSeeder.js
-import User from '../models/User'; // Import the User model
+import User from '../../models/User'; // Import the User model
 import bcrypt from 'bcryptjs'; // For password hashing
 
 const createSuperAdmin = async () => {

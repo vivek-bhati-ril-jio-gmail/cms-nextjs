@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import Users from './lib/models/User'; // Ensure this path is correct for your project
+import Users from '../models/User'; // Ensure this path is correct for your project
 import { NextResponse } from 'next/server'; // Import NextResponse
 
 // Middleware function

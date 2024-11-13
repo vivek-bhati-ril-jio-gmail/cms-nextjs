@@ -1,5 +1,5 @@
 import { DataTypes } from 'sequelize';
-import sequelize from '../connection'; // Import the Sequelize instance
+import sequelize from '../lib/sequelize'; // Import the Sequelize instance
 
 // Define the User model
 const User = sequelize.define('User', {
@@ -112,6 +112,8 @@ User.beforeUpdate((user) => {
   const currentUnixTimestamp = Math.floor(Date.now() / 1000); // Get current Unix timestamp
   user.updatedAt = currentUnixTimestamp; // Set the updated timestamp to current timestamp
 });
+
+sequelize.sync({ force: false })
 
 // Export the User model
 export default User;

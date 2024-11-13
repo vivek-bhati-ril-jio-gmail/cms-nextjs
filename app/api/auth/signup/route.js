@@ -2,7 +2,7 @@
 export const runtime = 'nodejs';
 import bcrypt from 'bcryptjs';
 import { NextResponse } from 'next/server';
-import Users from '../../../lib/models/User';  // Adjust path as needed
+import Users from '../../../../models/User';  // Adjust path as needed
 import { Op } from 'sequelize';  // Import Sequelize operators
 
 export async function POST(req) {
