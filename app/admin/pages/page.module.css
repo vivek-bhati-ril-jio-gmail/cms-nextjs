@@ -1,0 +1,242 @@
+/* page.module.css */
+.dashboardContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  background-color: #f7fafc;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+  color: black;  /* Set default text color to black */
+}
+
+.dashboardTitle {
+  font-size: 2.5rem;
+  color: black;  /* Ensure title is black */
+  font-weight: 600;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.btnToggleView {
+  background-color: #48bb78;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.btnToggleView:hover {
+  background-color: #38a169;
+}
+
+.btnCreate {
+  background-color: #3182ce;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.btnCreate:hover {
+  background-color: #2b6cb0;
+}
+
+.pageForm {
+  background: white;
+  padding: 30px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  width: 100%;
+  max-width: 800px;
+  margin-bottom: 40px;
+  color: black;  /* Ensure text inside the form is black */
+}
+
+.formGroup {
+  margin-bottom: 24px;
+}
+
+.formGroup label {
+  display: block;
+  font-weight: 500;
+  color: black;  /* Set label color to black */
+  margin-bottom: 8px;
+}
+
+.formGroup input,
+.formGroup textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  font-size: 1rem;
+  background-color: #f9fafb;
+  color: black;  /* Set text color inside form fields to black */
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.formGroup textarea {
+  height: 160px;
+  resize: vertical;
+}
+
+.formGroup input:focus,
+.formGroup textarea:focus {
+  border-color: #3182ce;
+  background-color: #ffffff;
+  outline: none;
+}
+
+.btnSubmit {
+  background-color: #3182ce;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+.btnSubmit:hover {
+  background-color: #2b6cb0;
+}
+
+.formButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.pagesList {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.pagesTitle {
+  font-size: 1.75rem;
+  color: black;  /* Ensure title of the pages list is black */
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.pages {
+  list-style: none;
+  padding: 0;
+}
+
+.pageItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pageItem:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+}
+
+.pageTitle {
+  font-size: 1.3rem;
+  color: black;  /* Ensure page title is black */
+  font-weight: 500;
+  text-align: left;
+}
+
+.pageActions button {
+  margin-left: 10px;
+  background-color: #3182ce;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pageActions button:hover {
+  background-color: #2b6cb0;
+}
+
+.noPagesMessage {
+  font-size: 1.1rem;
+  color: black;  /* Ensure no pages message is black */
+  text-align: center;
+  margin-top: 20px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.pagination button {
+  background-color: #3182ce;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pagination button:hover {
+  background-color: #2b6cb0;
+}
+
+.pagination span {
+  font-size: 1rem;
+  color: black;  /* Ensure pagination text is black */
+}
+
+@media (max-width: 768px) {
+  .dashboardTitle {
+    font-size: 2rem;
+  }
+
+  .pageForm {
+    padding: 20px;
+    width: 90%;
+    max-width: 100%;
+  }
+
+  .pageItem {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .pageActions button {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 10px;
+  }
+
+  .formButtons {
+    flex-direction: column;
+  }
+
+  .formButtons .btnSubmit,
+  .formButtons .btnToggleView {
+    width: 100%;
+    margin-top: 10px;
+  }
+}

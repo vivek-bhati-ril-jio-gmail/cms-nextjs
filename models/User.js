@@ -74,13 +74,6 @@ const User = sequelize.define('User', {
     comment: 'Status of the user. 0 - Pending, 1 - Approved, 2 - Rejected, 3 - Suspended.',
   },
 
-  // Timestamp for when the request was made (in Unix timestamp format). Can be null.
-  requestedAt: {
-    type: DataTypes.INTEGER,
-    allowNull: true, // Can be null if not set
-    comment: 'Unix timestamp when the request was made (null if not set).',
-  },
-
   // Timestamp for when the user was registered (in Unix timestamp format). Cannot be null.
   registeredAt: {
     type: DataTypes.INTEGER,
@@ -88,29 +81,8 @@ const User = sequelize.define('User', {
     defaultValue: () => Math.floor(Date.now() / 1000), // Default to current Unix timestamp
     comment: 'Unix timestamp when the user registered (cannot be null).',
   },
-
-  // Timestamp for when the user details were last updated (in Unix timestamp format). Can be null.
-  updatedAt: {
-    type: DataTypes.INTEGER,
-    allowNull: true, // Can be null if not updated
-    comment: 'Unix timestamp when the user was last updated (null if not updated).',
-  },
-});
-
-// Adding hooks to automatically update the timestamps
-User.beforeCreate((user) => {
-  const currentUnixTimestamp = Math.floor(Date.now() / 1000); // Get current Unix timestamp
-  if (!user.requestedAt) {
-    user.requestedAt = currentUnixTimestamp; // Set requested timestamp if not provided
-  }
-  if (!user.registeredAt) {
-    user.registeredAt = currentUnixTimestamp; // Set registered timestamp if not provided
-  }
-});
-
-User.beforeUpdate((user) => {
-  const currentUnixTimestamp = Math.floor(Date.now() / 1000); // Get current Unix timestamp
-  user.updatedAt = currentUnixTimestamp; // Set the updated timestamp to current timestamp
+}, {
+  timestamps: true, // Automatically adds createdAt and updatedAt fields
 });
 
 sequelize.sync({ force: false })
