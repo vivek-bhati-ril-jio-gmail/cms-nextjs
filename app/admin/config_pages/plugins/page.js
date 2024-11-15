@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 export default function PluginsAdmin() {
   const [plugins, setPlugins] = useState([]);
   const [newPlugin, setNewPlugin] = useState({ name: '', description: '', version: '' });
-  const [isLoading, setIsLoading] = useState(false); // Loading state for API calls
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     async function fetchPlugins() {
@@ -24,7 +24,7 @@ export default function PluginsAdmin() {
     fetchPlugins();
   }, []);
 
-  // Toggle plugin activation status
+  // Handle plugin toggle (Activate/Deactivate)
   const handlePluginToggle = async (id, isActive) => {
     setIsLoading(true);
     try {
@@ -47,7 +47,7 @@ export default function PluginsAdmin() {
     }
   };
 
-  // Install a new plugin
+  // Handle new plugin installation
   const handlePluginInstall = async () => {
     if (!newPlugin.name || !newPlugin.description || !newPlugin.version) {
       alert('All fields are required!');
@@ -78,60 +78,45 @@ export default function PluginsAdmin() {
     <div>
       <h1>Plugin Management</h1>
 
-      {/* New Plugin Installation Form */}
+      {/* Install Plugin */}
       <div>
         <h2>Install New Plugin</h2>
-        <div className="form-group">
-          <input
-            type="text"
-            placeholder="Plugin Name"
-            value={newPlugin.name}
-            onChange={(e) => setNewPlugin({ ...newPlugin, name: e.target.value })}
-            className="plugin-input"
-          />
-        </div>
-        <div className="form-group">
-          <input
-            type="text"
-            placeholder="Description"
-            value={newPlugin.description}
-            onChange={(e) => setNewPlugin({ ...newPlugin, description: e.target.value })}
-            className="plugin-input"
-          />
-        </div>
-        <div className="form-group">
-          <input
-            type="text"
-            placeholder="Version"
-            value={newPlugin.version}
-            onChange={(e) => setNewPlugin({ ...newPlugin, version: e.target.value })}
-            className="plugin-input"
-          />
-        </div>
+        <input
+          type="text"
+          placeholder="Plugin Name"
+          value={newPlugin.name}
+          onChange={(e) => setNewPlugin({ ...newPlugin, name: e.target.value })}
+        />
+        <input
+          type="text"
+          placeholder="Description"
+          value={newPlugin.description}
+          onChange={(e) => setNewPlugin({ ...newPlugin, description: e.target.value })}
+        />
+        <input
+          type="text"
+          placeholder="Version"
+          value={newPlugin.version}
+          onChange={(e) => setNewPlugin({ ...newPlugin, version: e.target.value })}
+        />
         <button onClick={handlePluginInstall} disabled={isLoading}>
           {isLoading ? 'Installing...' : 'Install Plugin'}
         </button>
       </div>
 
-      {/* Installed Plugins List */}
+      {/* Installed Plugins */}
       <div>
         <h2>Installed Plugins</h2>
-        {isLoading && <p>Loading plugins...</p>}
-        {!isLoading && plugins.length === 0 && <p>No plugins installed.</p>}
-        {!isLoading && plugins.length > 0 && (
-          <ul>
-            {plugins.map((plugin) => (
-              <li key={plugin.id}>
-                <div className="plugin-item">
-                  <span>{plugin.name}</span>
-                  <button onClick={() => handlePluginToggle(plugin.id, plugin.isActive)}>
-                    {plugin.isActive ? 'Deactivate' : 'Activate'}
-                  </button>
-                </div>
-              </li>
-            ))}
-          </ul>
-        )}
+        <ul>
+          {plugins.map((plugin) => (
+            <li key={plugin.id}>
+              <span>{plugin.name}</span>
+              <button onClick={() => handlePluginToggle(plugin.id, plugin.isActive)}>
+                {plugin.isActive ? 'Deactivate' : 'Activate'}
+              </button>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );

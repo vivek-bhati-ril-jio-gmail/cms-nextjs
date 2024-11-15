@@ -3,9 +3,9 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './page.module.css'; // Importing styles
+import cookie from 'cookie';
 
 export default function Login() {
-  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -19,16 +19,24 @@ export default function Login() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ username, email, password }),
+      body: JSON.stringify({ email, password }),
     });
 
     const data = await res.json();
 
     if (res.ok) {
-      document.cookie = `auth_token=${data.jwt}; path=/; max-age=${60 * 60}`; // Store JWT token in cookie
-      router.push('/admin/dashboard'); // Redirect user to dashboard
+      // Set the JWT token as a cookie
+      document.cookie = cookie.serialize('auth_token', data.auth_token, {
+        httpOnly: true,   // Secure, accessible only by the server
+        secure: process.env.NODE_ENV === 'production',  // Only secure cookies in production
+        maxAge: 3600,     // Expiry time for the cookie (1 hour)
+        path: '/',        // Cookie accessible across the entire app
+        sameSite: 'Strict', // SameSite policy to prevent CSRF
+      });
+
+      router.push('/admin/dashboard');  // Redirect to dashboard on successful login
     } else {
-      setError(data.msg); // Set error message if login failed
+      setError(data.msg);  // Show error message
     }
   };
 
@@ -38,16 +46,6 @@ export default function Login() {
         <h1>Login</h1>
         {error && <p className={styles.error}>{error}</p>}
         <form onSubmit={handleSubmit} className={styles.form}>
-          <div className={styles.inputGroup}>
-            <input
-              type="text"
-              placeholder="Username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-              className={styles.input}
-            />
-          </div>
           <div className={styles.inputGroup}>
             <input
               type="email"
@@ -68,7 +66,6 @@ export default function Login() {
               className={styles.input}
             />
           </div>
-
           <button type="submit" className={styles.submitBtn}>Login</button>
         </form>
         <p className={styles.signupPrompt}>

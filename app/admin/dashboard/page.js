@@ -14,20 +14,6 @@ export default function Dashboard() {
   });
   const [isPageView, setIsPageView] = useState(false); // State for toggling between post and page views
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      const res = await fetch('/api/posts');
-      const data = await res.json();
-      setPosts(data);
-    };
-    fetchPosts();
-  }, []);
-
-  const handleEditPost = (post) => {
-    setSelectedPost(post); // Set the selected post for editing
-  };
-
-
   const handleFormChange = (e) => {
     const { name, value } = e.target;
     setNewPost({
