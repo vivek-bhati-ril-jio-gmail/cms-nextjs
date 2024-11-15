@@ -1,0 +1,258 @@
+/* Dashboard container */
+.dashboardContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  background-color: #f7fafc;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+}
+
+/* Dashboard title */
+.dashboardTitle {
+  font-size: 2.5rem;
+  color: #2d3748;
+  font-weight: 600;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+/* Toggle View Button */
+.btnToggleView {
+  background-color: #48bb78; /* Green */
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-bottom: 30px;
+}
+
+.btnToggleView:hover {
+  background-color: #38a169; /* Darker Green */
+}
+
+/* Button to create new post */
+.btnCreate {
+  background-color: #3182ce; /* Blue */
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-bottom: 30px;
+}
+
+.btnCreate:hover {
+  background-color: #2b6cb0; /* Darker Blue */
+}
+
+/* New Post or Page form styles */
+.postForm, .pageForm {
+  background: white;
+  padding: 30px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 40px;
+}
+
+/* Form Group */
+.formGroup {
+  margin-bottom: 24px;
+}
+
+.formGroup label {
+  display: block;
+  font-weight: 500;
+  color: #2d3748;
+  margin-bottom: 8px;
+}
+
+.formGroup input,
+.formGroup textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  font-size: 1rem;
+  background-color: #f9fafb;
+  color: #000000; /* Ensure the text color is black */
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.formGroup textarea {
+  height: 160px;
+  resize: vertical;
+}
+
+.formGroup input:focus,
+.formGroup textarea:focus {
+  border-color: #3182ce; /* Blue */
+  background-color: #ffffff;
+  outline: none;
+}
+
+/* Submit Button */
+.btnSubmit {
+  background-color: #3182ce; /* Blue */
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+.btnSubmit:hover {
+  background-color: #2b6cb0; /* Darker Blue */
+}
+
+/* Form Buttons Container for Submit and Toggle View buttons */
+.formButtons {
+  display: flex;
+  flex-direction: column; /* Stack buttons vertically */
+  gap: 10px; /* Add space between the buttons */
+  margin-top: 20px;
+}
+
+/* Style for each button inside the form */
+.formButtons .btnSubmit,
+.formButtons .btnToggleView {
+  width: 100%; /* Make buttons take full width */
+}
+
+.btnSubmit {
+  background-color: #3182ce; /* Blue */
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btnSubmit:hover {
+  background-color: #2b6cb0; /* Darker Blue */
+}
+
+.btnToggleView {
+  background-color: #48bb78; /* Green */
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btnToggleView:hover {
+  background-color: #38a169; /* Darker Green */
+}
+
+/* Posts list */
+.postsList {
+  width: 100%;
+  max-width: 800px;
+}
+
+.postsTitle {
+  font-size: 1.75rem;
+  color: #2d3748;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Posts list container */
+.posts {
+  list-style: none;
+  padding: 0;
+}
+
+.postItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.postItem:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+}
+
+.postTitle {
+  font-size: 1.3rem;
+  color: #2d3748;
+  font-weight: 500;
+  text-align: left;
+}
+
+.postActions button {
+  margin-left: 10px;
+  background-color: #3182ce; /* Blue */
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.postActions button:hover {
+  background-color: #2b6cb0; /* Darker Blue */
+}
+
+/* No posts message */
+.noPostsMessage {
+  font-size: 1.1rem;
+  color: #718096;
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Small adjustments for responsiveness */
+@media (max-width: 768px) {
+  .dashboardTitle {
+    font-size: 2rem;
+  }
+
+  .postForm, .pageForm {
+    padding: 20px;
+    width: 90%;
+    max-width: 100%;
+  }
+
+  .postItem {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .postActions button {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 10px;
+  }
+
+  /* Ensure buttons still look good on smaller screens */
+  .formButtons {
+    flex-direction: column; /* Keep buttons stacked vertically */
+  }
+
+  .formButtons .btnSubmit,
+  .formButtons .btnToggleView {
+    width: 100%; /* Make both buttons take full width */
+    margin-top: 10px;
+  }
+}

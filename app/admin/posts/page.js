@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation'; // For navigation
-import styles from './page.module.css'; // Import the CSS module
+import { useRouter } from 'next/navigation';
+import styles from './page.module.css';
 
 const PostList = () => {
   const [posts, setPosts] = useState([]);
@@ -21,19 +21,16 @@ const PostList = () => {
     setIsLoading(false);
   };
 
-  // Handle page change
   const handlePageChange = (page) => {
     if (page > 0 && page <= totalPages) {
       fetchPosts(page);
     }
   };
 
-  // Handle edit button
   const handleEditPost = (id) => {
-    router.push(`/admin/posts/edit/${id}`); // Navigate to edit page
+    router.push(`/admin/posts/edit/?id=${id}`);
   };
 
-  // Handle delete button
   const handleDeletePost = async (id) => {
     const res = await fetch('/api/posts', {
       method: 'DELETE',
@@ -42,63 +39,74 @@ const PostList = () => {
     });
 
     if (res.ok) {
-      fetchPosts(currentPage); // Refresh post list
+      fetchPosts(currentPage);
     } else {
       alert('Failed to delete the post');
     }
   };
 
   useEffect(() => {
-    fetchPosts(currentPage); // Fetch posts on component mount
+    fetchPosts(currentPage);
   }, [currentPage]);
 
   return (
     <div className={styles.dashboardContainer}>
-      <h1 className={styles.dashboardTitle}>Manage your posts here.</h1>
 
       {isLoading && <p>Loading posts...</p>}
 
-      <table>
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Slug</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {Array.isArray(posts) && posts.length > 0 ? (
-            posts.map((post) => (
-              <tr key={post.id}>
-                <td>{post.title}</td>
-                <td>{post.slug}</td>
-                <td>
-                  <button onClick={() => handleEditPost(post.id)}>Edit</button>
-                  <button onClick={() => handleDeletePost(post.id)}>Delete</button>
-                  <button onClick={() => router.push(`/admin/posts/view/${post.id}`)}>View</button>
-                </td>
-              </tr>
-            ))
-          ) : (
+      <div className={styles.postsList}>
+        <table className={styles.postsTable}>
+          <thead>
             <tr>
-              <td colSpan="3">No posts available.</td>
+              <th>Title</th>
+              <th>Slug</th>
+              <th>Actions</th>
             </tr>
-          )}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {Array.isArray(posts) && posts.length > 0 ? (
+              posts.map((post) => (
+                <tr key={post.id}>
+                  <td className={styles.postTitle}>{post.title}</td>
+                  <td className={styles.postSlug}>{post.slug}</td>
+                  <td className={styles.postActions}>
+                    <button onClick={() => handleEditPost(post.id)} className={styles.btnToggleView}>
+                      Edit
+                    </button>
+                    <button onClick={() => handleDeletePost(post.id)} className={styles.btnToggleView}>
+                      Delete
+                    </button>
+                    <button onClick={() => router.push(`/admin/posts/view?id=${post.id}`)} className={styles.btnToggleView}>
+                      View
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="3" className={styles.noPostsMessage}>No posts available.</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
 
       {/* Pagination Controls */}
       <div className={styles.pagination}>
         <button
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
+          className={styles.btnToggleView}
         >
           Previous
         </button>
-        <span>Page {currentPage} of {totalPages}</span>
+        <span className={styles.paginationText}>
+          Page {currentPage} of {totalPages}
+        </span>
         <button
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
+          className={styles.btnToggleView}
         >
           Next
         </button>

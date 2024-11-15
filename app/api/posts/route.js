@@ -40,23 +40,6 @@ export async function POST(req) {
   }
 }
 
-export async function PUT(req) {
-  const { id, title, content, slug } = await req.json();
-  try {
-    const post = await Post.findByPk(id);
-    if (post) {
-      post.title = title;
-      post.content = content;
-      post.slug = slug;
-      await post.save();
-      return NextResponse.json(post, { status: 200 });
-    }
-    return NextResponse.json({ msg: 'Post not found' }, { status: 404 });
-  } catch (error) {
-    return NextResponse.json({ msg: 'Error updating post' }, { status: 500 });
-  }
-}
-
 export async function DELETE(req) {
   const { id } = await req.json();
   try {

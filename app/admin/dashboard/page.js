@@ -27,16 +27,6 @@ export default function Dashboard() {
     setSelectedPost(post); // Set the selected post for editing
   };
 
-  const deletePost = async (id) => {
-    const res = await fetch(`/api/posts/${id}`, {
-      method: 'DELETE',
-    });
-    if (res.ok) {
-      setPosts(posts.filter((post) => post.id !== id)); // Remove deleted post from the list
-    } else {
-      alert('Error deleting post');
-    }
-  };
 
   const handleFormChange = (e) => {
     const { name, value } = e.target;
@@ -181,9 +171,9 @@ export default function Dashboard() {
             <button type="submit" className={styles.btnSubmit}>
               Create Page
             </button>
-            <button type="button" className={styles.btnToggleView} onClick={toggleView}>
+            {/* <button type="button" className={styles.btnToggleView} onClick={toggleView}>
               {isPageView ? 'Switch to Post Creation' : 'Switch to Page Creation'}
-            </button>
+            </button> */}
           </div>
         </form>
       )}

@@ -38,6 +38,7 @@ const Header = () => {
               <li><a href="/admin/pages">Page List</a></li>
               <li><a href="/admin/profile">Profile</a></li>
               <li><button onClick={handleLogout}>Logout</button></li>
+              {user.role === 'super_admin' && <li><a href="/switch_theme/admin">Settings</a></li>}
             </>
           ) : (
             <>
