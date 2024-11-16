@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import styles from '../admin/profile/page.module.css';
+import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Importing eye icons for password visibility toggle
 
 export default function ProfileForm({ user }) {
   const [formData, setFormData] = useState({
     username: user.username,
     email: user.email,
-    bio: user.bio || '',
+    password: '', // For password
   });
+  
+  const [passwordVisible, setPasswordVisible] = useState(false); // State to toggle password visibility
 
   // Handle form input change
   const handleInputChange = (e) => {
@@ -15,6 +18,11 @@ export default function ProfileForm({ user }) {
       ...formData,
       [name]: value,
     });
+  };
+
+  // Handle password visibility toggle
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
   };
 
   // Handle form submission to update profile
@@ -51,6 +59,7 @@ export default function ProfileForm({ user }) {
             required
           />
         </div>
+
         <div className={styles.formGroup}>
           <label htmlFor="email">Email</label>
           <input
@@ -63,16 +72,24 @@ export default function ProfileForm({ user }) {
             required
           />
         </div>
+
         <div className={styles.formGroup}>
-          <label htmlFor="bio">Bio</label>
-          <textarea
-            id="bio"
-            name="bio"
-            value={formData.bio}
-            onChange={handleInputChange}
-            placeholder="Write something about yourself"
-          />
+          <label htmlFor="password">Password</label>
+          <div className={styles.passwordContainer}>
+            <input
+              type={passwordVisible ? 'text' : 'password'}
+              id="password"
+              name="password"
+              value={formData.password}
+              onChange={handleInputChange}
+              placeholder="Enter your password"
+            />
+            <div className={styles.passwordToggle} onClick={togglePasswordVisibility}>
+              {passwordVisible ? <FaEyeSlash /> : <FaEye />}
+            </div>
+          </div>
         </div>
+
         <div className={styles.formGroup}>
           <button type="submit" className={styles.submitBtn}>
             Save Changes

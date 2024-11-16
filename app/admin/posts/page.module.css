@@ -3,11 +3,13 @@
   flex-direction: column;
   align-items: center;
   padding: 40px 20px;
-  background-color: #f4f5f7;
+  background-color: #f4f5f7;  /* Ensure the background color is as earlier */
   font-family: 'Inter', sans-serif;
   min-height: 100vh;
   color: #333;
   width: 100%;
+  position: relative; /* Allow relative positioning for child elements */
+  padding-top: 80px; /* Ensure there’s space for the fixed header */
 }
 
 .dashboardTitle {
@@ -24,13 +26,17 @@
   width: 100%;
   max-width: 1200px;
   padding: 0 20px;
+  margin-top: 20px; /* Add space below the title */
+  background-color: #fff; /* Make sure this matches previous background */
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Add shadow to posts list */
 }
 
 .postsTable {
   width: 100%;
   border-collapse: collapse;
   background-color: #fff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Make sure table background and shadow match previous layout */
   border-radius: 8px;
 }
 
@@ -117,6 +123,37 @@
 .pagination span {
   font-size: 1rem;
   color: #444;
+}
+
+/* Loading Indicator */
+.loading {
+  position: absolute; /* Make the loading indicator stay in place */
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Correct the centering */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  color: #333;
+  width: 100%;
+}
+
+/* Optional: Add a simple spinner */
+.loading::after {
+  content: '';
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border: 4px solid transparent;
+  border-top: 4px solid #007bff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 /* Mobile styles */

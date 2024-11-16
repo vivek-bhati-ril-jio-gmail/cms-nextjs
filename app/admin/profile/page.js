@@ -44,7 +44,7 @@ export default function ProfilePage() {
           <h1 className={styles.username}>{user.username}</h1>
           <p className={styles.userEmail}>Email: {user.email}</p>
           <p className={styles.userRole}>Role: {user.role}</p>
-          <p className={styles.userStatus}>Status: {user.status}</p>
+          <p className={styles.userStatus}>Status: {user.status === '1' ? 'Active' : 'Blocked'}</p>
           <p className={styles.registrationDate}>Joined: {new Date(user.registeredAt * 1000).toLocaleDateString()}</p>
         </div>
       </div>

@@ -52,7 +52,13 @@ const PostList = () => {
   return (
     <div className={styles.dashboardContainer}>
 
-      {isLoading && <p>Loading posts...</p>}
+      {/* Loading Spinner or Message */}
+      {isLoading && (
+        <div className={styles.loading}>
+          <p>Loading posts...</p>
+          {/* You can replace this with a spinner */}
+        </div>
+      )}
 
       <div className={styles.postsList}>
         <table className={styles.postsTable}>

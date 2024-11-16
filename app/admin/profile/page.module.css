@@ -73,6 +73,14 @@
   margin-top: 5px;
   border-radius: 5px;
   border: 1px solid #ddd;
+  background-color: #fff; /* Ensuring textareas are white */
+  color: #333; /* Text color set to black */
+  font-size: 1rem;
+}
+
+.formGroup textarea {
+  height: 150px; /* Make the textarea larger */
+  resize: vertical; /* Allow vertical resizing */
 }
 
 .formGroup button {
@@ -117,4 +125,26 @@
 
 .uploadText:hover {
   text-decoration: underline;
+}
+
+/* Password Input Field and Visibility Toggle */
+.passwordContainer {
+  position: relative;
+}
+
+.passwordContainer input {
+  padding-right: 30px; /* Space for the eye icon */
+}
+
+.passwordToggle {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #007bff;
+}
+
+.passwordToggle:hover {
+  color: #0056b3;
 }
