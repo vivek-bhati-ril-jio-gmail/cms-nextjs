@@ -5,10 +5,6 @@ import { AuthProvider } from './context/AuthContext'; // Authentication context 
 import Header from './components/Header'; // Sticky header component
 import './globals.css'; // Include global styles
 
-import dynamic from 'next/dynamic';
-
-// const Header = dynamic(() => from('./components/Header'), { ssr: false });
-
 // await createSuperAdmin();
 
 // Import fonts locally using Next.js font system
@@ -38,12 +34,12 @@ export default function RootLayout({ children }) {
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         {/* Authentication provider to wrap the app for authentication state */}
-        {/* <AuthProvider> */}
+        <AuthProvider>
           {/* Sticky header component that appears globally */}
           <Header />
           {/* Main content of the page */}
           <main>{children}</main>
-        {/* </AuthProvider> */}
+        </AuthProvider>
       </body>
     </html>
   );

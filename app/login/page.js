@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './page.module.css'; // Importing styles
-import cookie from 'cookie';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -25,18 +24,10 @@ export default function Login() {
     const data = await res.json();
 
     if (res.ok) {
-      // Set the JWT token as a cookie
-      document.cookie = cookie.serialize('auth_token', data.auth_token, {
-        httpOnly: true,   // Secure, accessible only by the server
-        secure: process.env.NODE_ENV === 'production',  // Only secure cookies in production
-        maxAge: 3600,     // Expiry time for the cookie (1 hour)
-        path: '/',        // Cookie accessible across the entire app
-        sameSite: 'Strict', // SameSite policy to prevent CSRF
-      });
-
-      router.push('/admin/dashboard');  // Redirect to dashboard on successful login
+      document.cookie = `auth_token=${data.auth_token}; path=/; max-age=${60 * 60}`; // Store JWT token in cookie
+      router.push('/admin/dashboard'); // Redirect user to dashboard
     } else {
-      setError(data.msg);  // Show error message
+      setError(data.msg); // Set error message if login failed
     }
   };
 
@@ -66,6 +57,7 @@ export default function Login() {
               className={styles.input}
             />
           </div>
+
           <button type="submit" className={styles.submitBtn}>Login</button>
         </form>
         <p className={styles.signupPrompt}>

@@ -1,52 +1,37 @@
-'use client';  // This ensures the code runs client-side
+'use client';
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import jwt from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';  // Import jwt from the jsonwebtoken package
 
 const Header = () => {
   const [user, setUser] = useState(null); // Store user state
   const router = useRouter();
 
   useEffect(() => {
-    // This will ensure that we are running on the client side
-    if (typeof window !== "undefined") {
-      // Function to get cookie value by name
-      const getCookie = (name) => {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop().split(';').shift();
-        return null;
-      };
+    const authToken = document.cookie.split(';').find(c => c.trim().startsWith('auth_token='));
 
-      // Get the JWT token from cookies
-      const token = getCookie('auth_token');  // Replace with your actual cookie name
-      console.log('Token:', token);  // For debugging
+    if (authToken) {
+      // Extract the token value
+      const token = authToken.split('=')[1];
+      
+      // Decode the token to get the user data
+      const decoded = jwt.decode(token, process.env.JWT_SECRET);  // Decode the token
 
-      if (token) {
-        try {
-          const decoded = jwt.decode(token);  // Decode the JWT token
-
-          if (decoded) {
-            setUser(decoded.userData);
-          } else {
-            setUser(null);  // Token is invalid or cannot be decoded
-          }
-        } catch (error) {
-          console.error('Error decoding token:', error);
-          setUser(null);  // In case of error, set user to null
-        }
+      if (decoded && decoded.userData) {
+        setUser(decoded.userData);  // Store the decoded user data (e.g., id, email, role)
       } else {
-        setUser(null);  // No token found in cookies
+        setUser(authToken);  // If the token is invalid or doesn't contain user data, clear user state
       }
+    } else {
+      setUser(null);
     }
-  }, []);  // This will run on page refresh and always update the user state based on the token
+  }, []);
 
   const handleLogout = () => {
-    // Remove the token cookie when logging out
-    document.cookie = 'auth_token=; path=/; max-age=0';  // Clears the cookie
-    setUser(null);  // Reset the user state
-    router.push('/login');  // Redirect to login page
+    document.cookie = 'auth_token=; path=/; max-age=0';
+    setUser(null);
+    router.push('/login');
   };
 
   return (
@@ -57,16 +42,19 @@ const Header = () => {
       </div>
       <nav>
         <ul>
-          {user ? (
+          {user ? ( ( user.role === 'super_admin' ? (
             <>
               <li><a href="/admin/dashboard">Dashboard</a></li>
               <li><a href="/admin/posts">Post List</a></li>
               <li><a href="/admin/pages">Page List</a></li>
               <li><a href="/admin/profile">Profile</a></li>
               <li><button onClick={handleLogout}>Logout</button></li>
-              {user.role === 'super_admin' && <li><a href="/switch_theme/admin">Settings</a></li>}
             </>
           ) : (
+            <>
+              <li><a href="/posts">{user}</a></li>
+            </>
+            )) ) : (
             <>
               <li><a href="/login">Login</a></li>
               <li><a href="/signup">Sign Up</a></li>
