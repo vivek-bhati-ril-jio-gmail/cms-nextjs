@@ -7,11 +7,11 @@ import Users from '../../../../models/User';  // Adjust path as needed
 import { Op } from 'sequelize';  // Import Sequelize operators
 
 export async function POST(req) {
-  const { username, password, email } = await req.json();
+  const { password, email } = await req.json();
 
   // Ensure at least one of username or email is provided along with password
-  if (!username && !email || !password) {
-    return NextResponse.json({ msg: 'Please provide both username/email and password' }, {
+  if (!email || !password) {
+    return NextResponse.json({ msg: 'Please provide both email and password' }, {
       status: 400,
     });
   }
@@ -20,7 +20,7 @@ export async function POST(req) {
     // Find the user by username or email
     const user = await Users.findOne({
       where: {
-        [Op.or]: [{ username }, { email }],
+        email,
       },
     });
 
