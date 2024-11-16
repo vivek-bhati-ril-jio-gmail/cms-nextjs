@@ -1,55 +1,108 @@
-// app/api/posts/route.js
-import Post from '../../../models/Post';
-import { NextResponse } from 'next/server';
+import { NextResponse } from 'next/server'; // Import NextResponse
+import Plugin from '../../../models/Plugin'; // Import the Plugin model
 
+// Handle GET request for fetching plugins with pagination
 export async function GET(req) {
-  const { searchParams } = new URL(req.url);
-  const page = parseInt(searchParams.get('page') || '1', 10); // Default to page 1
-  const limit = parseInt(searchParams.get('limit') || '10', 10); // Default to 10 posts per page
+  const { searchParams } = new URL(req.url); // Extract query params
+  const page = parseInt(searchParams.get('page') || '1');
+  const limit = parseInt(searchParams.get('limit') || '10');
   const offset = (page - 1) * limit;
 
   try {
-    // Fetch paginated posts
-    const posts = await Post.findAll({
+    // Fetch plugins with pagination
+    const plugins = await Plugin.findAll({
       limit,
       offset,
-      order: [['createdAt', 'DESC']], // Optional: Sort posts by creation date
     });
 
-    // Get total count of posts to calculate total pages
-    const totalPosts = await Post.count();
-    const totalPages = Math.ceil(totalPosts / limit);
+    // Count total plugins to calculate total pages
+    const totalPlugins = await Plugin.count();
+    const totalPages = Math.ceil(totalPlugins / limit);
 
     return NextResponse.json({
-      posts,
-      totalPages,
+      plugins,
       currentPage: page,
+      totalPages,
+    }, {
+      status: 200,
     });
   } catch (error) {
-    return NextResponse.json({ msg: 'Error fetching posts' }, { status: 500 });
+    console.error('Error fetching plugins:', error);
+    return NextResponse.json({
+      error: 'Failed to fetch plugins',
+    }, {
+      status: 500,
+    });
   }
 }
 
+// Handle POST request for creating a new plugin
 export async function POST(req) {
-  const { title, content, slug } = await req.json();
+  const { name, description, version, isActive } = await req.json();
+
+  // Check if required fields are provided
+  if (!name || !description || !version) {
+    return NextResponse.json({
+      error: 'Name, description, and version are required',
+    }, {
+      status: 400,
+    });
+  }
+
   try {
-    const newPost = await Post.create({ title, content, slug });
-    return NextResponse.json(newPost, { status: 201 });
+    // Create a new plugin
+    const plugin = await Plugin.create({
+      name,
+      description,
+      version,
+      isActive: isActive || false, // Default to inactive
+    });
+
+    return NextResponse.json(plugin, {
+      status: 201,
+    });
   } catch (error) {
-    return NextResponse.json({ msg: 'Error creating post' }, { status: 500 });
+    console.error('Error creating plugin:', error);
+    return NextResponse.json({
+      error: 'Failed to create plugin',
+    }, {
+      status: 500,
+    });
   }
 }
 
-export async function DELETE(req) {
-  const { id } = await req.json();
+// Handle PUT request for toggling plugin status (activate/deactivate)
+export async function PUT(req) {
+  const { id } = req.url.split('/').pop(); // Extract plugin ID from URL
+  const { isActive } = await req.json();
+
   try {
-    const post = await Post.findByPk(id);
-    if (post) {
-      await post.destroy();
-      return NextResponse.json({ msg: 'Post deleted' }, { status: 200 });
+    const plugin = await Plugin.findByPk(id);
+    if (!plugin) {
+      return NextResponse.json({
+        error: 'Plugin not found',
+      }, {
+        status: 404,
+      });
     }
-    return NextResponse.json({ msg: 'Post not found' }, { status: 404 });
+
+    // Toggle the plugin's active status (activate/deactivate)
+    plugin.isActive = isActive !== undefined ? isActive : !plugin.isActive;
+    await plugin.save();
+
+    return NextResponse.json({
+      id: plugin.id,
+      name: plugin.name,
+      isActive: plugin.isActive,
+    }, {
+      status: 200,
+    });
   } catch (error) {
-    return NextResponse.json({ msg: 'Error deleting post' }, { status: 500 });
+    console.error('Error updating plugin status:', error);
+    return NextResponse.json({
+      error: 'Failed to update plugin status',
+    }, {
+      status: 500,
+    });
   }
 }

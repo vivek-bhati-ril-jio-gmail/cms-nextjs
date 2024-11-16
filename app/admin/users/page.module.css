@@ -1,0 +1,189 @@
+/* Global Styles */
+.dashboardContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px; /* Adjusted padding for better layout */
+  background-color: #f8f9fa;
+  font-family: 'Roboto', sans-serif; /* Changed to a modern font */
+  min-height: 100vh;
+  color: #333;
+  width: 100%;
+  position: relative;
+  box-sizing: border-box;
+}
+
+/* Page Header */
+.pageHeader {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 30px;
+  color: #343a40;
+  text-align: center;
+}
+
+/* Button Styles */
+.btnSubmit {
+  padding: 12px 24px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-bottom: 20px;
+  align-self: flex-start; /* Align the button to the left */
+}
+
+.btnSubmit:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+.btnSubmit:focus {
+  outline: none;
+}
+
+/* Table Styles */
+.userTable {
+  width: 100%;
+  max-width: 1200px;
+  border-collapse: collapse;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.userTable th,
+.userTable td {
+  padding: 16px;
+  text-align: left;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.userTable th {
+  background-color: #f1f3f5;
+  font-weight: bold;
+  color: #495057;
+  font-size: 1.1rem;
+}
+
+.userTable tr {
+  transition: background-color 0.2s ease;
+}
+
+.userTable tr:hover {
+  background-color: #f8f9fa;
+}
+
+/* User Info Styles */
+.userName,
+.userEmail,
+.userRole,
+.userStatus {
+  font-size: 1rem;
+  color: #6c757d;
+}
+
+.userName {
+  font-weight: 600;
+  color: #343a40;
+}
+
+/* Actions Column */
+.userActions {
+  display: flex;
+  gap: 12px;
+}
+
+/* Edit and Delete Buttons */
+.btnEdit,
+.btnDelete {
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.btnEdit {
+  background-color: #28a745;
+  color: white;
+}
+
+.btnEdit:hover {
+  background-color: #218838;
+  transform: translateY(-2px);
+}
+
+.btnDelete {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btnDelete:hover {
+  background-color: #c82333;
+  transform: translateY(-2px);
+}
+
+/* Loading Indicator */
+.loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  color: #343a40;
+  width: 100%;
+}
+
+.loading::after {
+  content: '';
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border: 4px solid transparent;
+  border-top: 4px solid #007bff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Keyframe for Spinner Animation */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive Table Styles */
+@media (max-width: 768px) {
+  .userTable th,
+  .userTable td {
+    padding: 12px;
+  }
+
+  .userTable th {
+    font-size: 1rem;
+  }
+
+  .btnSubmit {
+    width: 100%;
+    font-size: 1.1rem;
+  }
+
+  .userActions {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .btnEdit,
+  .btnDelete {
+    width: 100%;
+    font-size: 1rem;
+  }
+}

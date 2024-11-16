@@ -4,7 +4,7 @@ import Post from '../../../../models/Post'; // Post model
 // GET request to fetch a post by ID
 export async function GET(request, { params }) {
   const { id } = params;
-
+  
   try {
     // Fetch the post by ID from the database
     const post = await Post.findByPk(id); // Use Sequelize's `findByPk` method

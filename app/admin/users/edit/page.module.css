@@ -1,0 +1,159 @@
+/* Global styling */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f7fc;
+  color: #000; /* Changed to black text */
+}
+
+/* Container for the form */
+.dashboardContainer {
+  width: 100%;
+  max-width: 500px;
+  margin: 2rem auto;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+}
+
+.dashboardContainer:hover {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Form Title */
+.formTitle {
+  font-size: 24px;
+  font-weight: 600;
+  color: #000; /* Changed to black text */
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* Form group layout */
+.formGroup {
+  margin-bottom: 1.5rem;
+}
+
+/* Form labels */
+.formGroup label {
+  font-size: 16px;
+  font-weight: 500;
+  color: #000; /* Changed to black text */
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+/* Inputs */
+.dashboardContainer input[type="text"],
+.dashboardContainer input[type="email"],
+.dashboardContainer input[type="password"],
+.dashboardContainer select {
+  width: 100%;
+  padding: 10px 15px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  outline: none;
+  background-color: #f9f9f9;
+  color: #000; /* Changed to black text */
+  transition: all 0.3s ease;
+}
+
+.dashboardContainer input[type="text"]:focus,
+.dashboardContainer input[type="email"]:focus,
+.dashboardContainer input[type="password"]:focus,
+.dashboardContainer select:focus {
+  border-color: #3498db;
+  background-color: #ffffff;
+}
+
+/* Toggle switch styling */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  border-radius: 50%;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #3498db;
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+/* Buttons */
+.formButtons button {
+  width: 100%;
+  padding: 12px;
+  background-color: #3498db;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.formButtons button:hover {
+  background-color: #2980b9;
+}
+
+.formButtons button:active {
+  background-color: #1e6b8e;
+}
+
+/* Placeholder styling */
+input::placeholder {
+  color: #bbb;
+}
+
+/* Responsive styling */
+@media (max-width: 768px) {
+  .dashboardContainer {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+  .formGroup label {
+    font-size: 14px;
+  }
+  .formGroup input,
+  .formGroup select {
+    font-size: 14px;
+  }
+}

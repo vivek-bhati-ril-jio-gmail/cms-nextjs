@@ -1,0 +1,136 @@
+/* Apply styles to the body to set global background color and text color */
+body {
+  background-color: #fff;  /* White background for the whole page */
+  color: #333;             /* Black text color */
+  font-family: Arial, sans-serif; /* Default font */
+  margin: 0;               /* Remove default margin */
+  padding: 0;              /* Remove default padding */
+}
+
+/* General styles for the dashboard container */
+.dashboardContainer {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Form styles */
+.pluginForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Each input field group */
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.formGroup label {
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.formGroup input,
+.formGroup textarea {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+  color: #333;
+  background-color: white;
+}
+
+/* Textarea styling */
+.textarea {
+  height: 150px;
+  resize: vertical;
+}
+
+/* Toggle switch styles */
+.toggleWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  border-radius: 50%;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #4CAF50;
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+/* Buttons */
+.formButtons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btnSubmit {
+  padding: 12px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btnSubmit:hover {
+  background-color: #45a049;
+}
+
+.btnSubmit:focus {
+  outline: none;
+}
+
+/* Loading state */
+.loading {
+  font-size: 18px;
+  text-align: center;
+  color: #888;
+}

@@ -47,11 +47,14 @@ const Header = () => {
               <li><a href="/admin/dashboard">Dashboard</a></li>
               <li><a href="/admin/posts">Post List</a></li>
               <li><a href="/admin/profile">Profile</a></li>
+              <li><a href="/admin/plugins">Plugins</a></li>
+              <li><a href="/admin/users">Users</a></li>
               <li><button onClick={handleLogout}>Logout</button></li>
             </>
           ) : (
             <>
               <li><a href="/posts">{user.role}</a></li>
+              <li><a href="/admin/profile">Profile</a></li>
             </>
             )) ) : (
             <>
