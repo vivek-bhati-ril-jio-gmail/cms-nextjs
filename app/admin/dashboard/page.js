@@ -108,9 +108,6 @@ export default function Dashboard() {
             <button type="submit" className={styles.btnSubmit}>
               Create Post
             </button>
-            <button type="button" className={styles.btnToggleView} onClick={toggleView}>
-              {isPageView ? 'Switch to Post Creation' : 'Switch to Page Creation'}
-            </button>
           </div>
         </form>
       )}
@@ -157,9 +154,6 @@ export default function Dashboard() {
             <button type="submit" className={styles.btnSubmit}>
               Create Page
             </button>
-            {/* <button type="button" className={styles.btnToggleView} onClick={toggleView}>
-              {isPageView ? 'Switch to Post Creation' : 'Switch to Page Creation'}
-            </button> */}
           </div>
         </form>
       )}
