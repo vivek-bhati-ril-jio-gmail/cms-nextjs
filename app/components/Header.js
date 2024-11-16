@@ -18,8 +18,8 @@ const Header = () => {
       // Decode the token to get the user data
       const decoded = jwt.decode(token, process.env.JWT_SECRET);  // Decode the token
 
-      if (decoded && decoded.userData) {
-        setUser(decoded.userData);  // Store the decoded user data (e.g., id, email, role)
+      if (decoded && decoded.user) {
+        setUser(decoded.user);  // Store the decoded user data (e.g., id, email, role)
       } else {
         setUser(authToken);  // If the token is invalid or doesn't contain user data, clear user state
       }
@@ -51,7 +51,7 @@ const Header = () => {
             </>
           ) : (
             <>
-              <li><a href="/posts">{user}</a></li>
+              <li><a href="/posts">{user.role}</a></li>
             </>
             )) ) : (
             <>

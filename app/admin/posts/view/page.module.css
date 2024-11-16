@@ -1,0 +1,141 @@
+/* Container to center everything */
+.dashboardContainer {
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  justify-content: flex-start;
+  align-items: center; /* Align all items centrally */
+  min-height: 100vh; /* Full viewport height */
+  background-color: #f4f4f4; /* Light background color */
+  margin: 0;
+  padding: 20px;
+}
+
+/* Header for title and slug */
+.header {
+  text-align: center;
+  margin-bottom: 20px; /* Space below title and slug */
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
+  border-radius: 8px;
+  width: 100%;
+  max-width: 900px;
+}
+
+/* Title styling */
+.header h1 {
+  font-size: 2.5rem; /* Large font for the title */
+  color: #333;
+  margin: 0;
+  padding-bottom: 10px;
+}
+
+/* Slug as subheading */
+.header h2 {
+  font-size: 1.5rem; /* Smaller font for the slug */
+  color: #555;
+  margin: 0;
+  padding-top: 0;
+}
+
+/* Content wrapper */
+.contentContainer {
+  width: 100%;
+  max-width: 900px; /* Set max width for large screens */
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
+  border-radius: 8px; /* Rounded corners */
+  overflow-y: auto; /* If content overflows, allow scroll */
+  display: block; /* Block-level container to stack elements */
+  margin-top: 20px;
+}
+
+/* Content styling */
+.content {
+  font-size: 16px; /* Base font size */
+  line-height: 1.6; /* Line height for readability */
+  color: #333; /* Dark text color */
+  white-space: pre-line; /* Keep white spaces and line breaks */
+  margin: 0; /* Ensure no margins between the content */
+  padding: 0; /* Reset padding */
+}
+
+/* General element reset for content */
+.content p,
+.content ul,
+.content ol,
+.content blockquote,
+.content pre,
+.content h1,
+.content h2,
+.content h3,
+.content h4,
+.content h5,
+.content h6 {
+  margin: 0; /* Remove margins */
+  padding: 0; /* Remove padding */
+}
+
+/* Paragraph styling */
+.content p {
+  margin-bottom: 0; /* No bottom margin */
+  padding-bottom: 0;
+  line-height: 1.6; /* Better line height for paragraphs */
+}
+
+/* List styling */
+.content ul, .content ol {
+  margin-left: 20px; /* Some indentation for lists */
+  padding-left: 0;
+  margin-bottom: 0; /* Remove margin between list items */
+}
+
+/* List item styling */
+.content li {
+  margin-bottom: 0; /* Remove bottom margin for list items */
+  padding-bottom: 0;
+  line-height: 1.6; /* Ensure consistent line height */
+}
+
+/* Code block styling */
+.content pre {
+  background-color: #f8f8f8;
+  padding: 10px 20px;
+  border-radius: 5px;
+  overflow-x: auto;
+  white-space: pre-wrap; /* Wrap long lines */
+  word-wrap: break-word;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 14px;
+  margin-bottom: 0; /* Remove bottom margin */
+  line-height: 1.4; /* Ensure consistent spacing inside code block */
+}
+
+/* Blockquote styling */
+.content blockquote {
+  background-color: #f7f7f7;
+  padding: 10px 20px;
+  border-left: 4px solid #007bff;
+  font-style: italic;
+  margin: 0; /* Remove margin */
+  line-height: 1.6; /* Ensure consistent line height */
+}
+
+/* Links styling */
+.content a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.content a:hover {
+  text-decoration: underline;
+}
+
+/* Make sure images are responsive */
+.content img {
+  max-width: 100%; /* Ensure images fit inside the container */
+  height: auto;
+  border-radius: 5px;
+  margin-bottom: 0; /* Remove margin below images */
+}

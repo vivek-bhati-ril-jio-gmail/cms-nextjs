@@ -71,18 +71,73 @@ const User = sequelize.define('User', {
     type: DataTypes.ENUM('0', '1', '2', '3'), // ENUM for status
     allowNull: false, // status cannot be null
     defaultValue: '0', // Default value is '0' (pending)
-    comment: 'Status of the user. 0 - Pending, 1 - Approved, 2 - Rejected, 3 - Suspended.',
+    comment: 'Status of the user. 0 - Request Pending (RequestedAt time), 1 - Approved (RegisteredAt time), 2 - Rejected (RejectedAt time), 3 - Suspended.',
+  },
+
+  // Timestamp for when the user requested to register (in Unix timestamp format). Cannot be null.
+  requestedAt: {
+    type: DataTypes.INTEGER,
+    allowNull: true, // Must be set when registering the user
+    defaultValue: () => Math.floor(Date.now() / 1000), // Default to current Unix timestamp
+    comment: 'Unix timestamp when the user requested to register.',
   },
 
   // Timestamp for when the user was registered (in Unix timestamp format). Cannot be null.
   registeredAt: {
     type: DataTypes.INTEGER,
-    allowNull: false, // Must be set when registering the user
+    allowNull: true, // Must be set when registering the user
     defaultValue: () => Math.floor(Date.now() / 1000), // Default to current Unix timestamp
-    comment: 'Unix timestamp when the user registered (cannot be null).',
+    comment: 'Unix timestamp when the user was officially registered.',
+  },
+
+  // Timestamp for when the user was created (in Unix timestamp format). Automatically set by hooks.
+  createdAt: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    comment: 'Unix timestamp when the user record was created.',
+  },
+
+  // Timestamp for when the user was last updated (in Unix timestamp format). Automatically set by hooks.
+  updatedAt: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    comment: 'Unix timestamp when the user record was last updated.',
   },
 }, {
-  timestamps: true, // Automatically adds createdAt and updatedAt fields
+  // Disable the inbuilt timestamps for Sequelize to manage
+  timestamps: false,  // No need for Sequelize to manage createdAt or updatedAt automatically
+  hooks: {
+    beforeCreate: (user) => {
+      // Ensure the default status is '0' (Request Pending) and set other timestamps
+      const currentTimestamp = Math.floor(Date.now() / 1000);
+
+      if (user.status === undefined) {
+        user.status = '0';  // Default status as '0' (Request Pending) if not specified
+      }
+      if (user.requestedAt === undefined) {
+        user.requestedAt = currentTimestamp;  // Set requestedAt as current timestamp if not specified
+      }
+
+      user.createdAt = currentTimestamp; // Set createdAt as current timestamp
+      user.updatedAt = currentTimestamp; // Set updatedAt as current timestamp
+    },
+    beforeUpdate: (user) => {
+      // Update the updatedAt timestamp before updating user
+      user.updatedAt = Math.floor(Date.now() / 1000); // Set updatedAt as current timestamp
+    },
+    beforeSave: (user) => {
+      // If the status changes, update the respective timestamps
+      if (user.status === '1' && !user.registeredAt) {
+        user.registeredAt = Math.floor(Date.now() / 1000); // Set registeredAt if the user is approved
+      }
+      if (user.status === '2' && !user.rejectedAt) {
+        user.rejectedAt = Math.floor(Date.now() / 1000); // Set rejectedAt if the user is rejected
+      }
+      if (user.status === '0' && !user.requestedAt) {
+        user.requestedAt = Math.floor(Date.now() / 1000); // Set requestedAt if the status is pending
+      }
+    }
+  }
 });
 
 sequelize.sync({ force: false })

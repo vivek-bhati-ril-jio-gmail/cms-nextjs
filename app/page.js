@@ -1,8 +1,5 @@
 import Image from "next/image";
 import styles from "./page.module.css"; // Adjust path as needed
-import createSuperAdmin from '@/app/seeders/superAdminSeeder';
-
-await createSuperAdmin();
 
 export default function Home() {
   return (

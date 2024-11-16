@@ -38,19 +38,9 @@ export async function POST(req) {
       return NextResponse.json({ msg: 'Invalid credentials' }, { status: 401 });
     }
 
-    // You can return a success response along with some user details (without password)
-    // Typically, you'd issue a token here (e.g., JWT) for the user session
-    const userData = {
-      id: user.id,
-      username: user.username,
-      email: user.email,
-      role: user.role,
-      isActive: user.isActive,
-      isBlocked: user.isBlocked,
-    };
     // Create JWT token with user data
     const token = jwt.sign(
-      { userData },  // User data to include in the token
+      { user },  // User data to include in the token
       process.env.JWT_SECRET,  // Secret key for signing the JWT
       { expiresIn: '1d' }  // Expiry time for the token (1 day)
     );

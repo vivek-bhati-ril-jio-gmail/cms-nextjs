@@ -4,6 +4,15 @@ import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation'; // Import hooks from next/navigation
 import styles from './page.module.css'; // Adjust the path as needed for your styles
 
+// Function to generate a slug from the title
+function generateSlug(title) {
+  let slug = title.toLowerCase();  // Convert to lowercase
+  slug = slug.replace(/[^a-z0-9\s-]/g, '');  // Remove special characters
+  slug = slug.replace(/\s+/g, '-');  // Replace spaces with hyphens
+  slug = slug.replace(/^-+|-+$/g, '');  // Trim hyphens
+  return slug;
+}
+
 export default function EditPost() {
   const [post, setPost] = useState({
     title: '',
@@ -14,7 +23,7 @@ export default function EditPost() {
   
   const router = useRouter();
   const searchParams = useSearchParams();
-  const id = searchParams.get('id'); // Use `useSearchParams` to get the 'id' from query string
+  const id = searchParams.get('id'); // Get the 'id' from query string
 
   // Fetch the post data when the id is available
   useEffect(() => {
@@ -24,7 +33,11 @@ export default function EditPost() {
           const res = await fetch(`/api/posts/${id}`);
           const data = await res.json();
           if (res.ok) {
-            setPost(data); // Set the fetched post data
+            setPost({
+              title: data.title,
+              slug: data.slug || generateSlug(data.title),  // Auto-generate slug if not present
+              content: data.content
+            });
           } else {
             alert('Post not found!');
           }
@@ -41,10 +54,21 @@ export default function EditPost() {
   // Handle form input changes
   const handleFormChange = (e) => {
     const { name, value } = e.target;
-    setPost({
-      ...post,
-      [name]: value,
-    });
+
+    // Auto-generate slug when the title is changed
+    if (name === 'title') {
+      const newSlug = generateSlug(value);
+      setPost({
+        ...post,
+        [name]: value,
+        slug: newSlug,  // Update the slug field as well
+      });
+    } else {
+      setPost({
+        ...post,
+        [name]: value,
+      });
+    }
   };
 
   // Handle the form submission to update the post

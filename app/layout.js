@@ -1,11 +1,11 @@
 // import sequelize from '../lib/sequelize';
-// import createSuperAdmin from '../app/seeders/superAdminSeeder';  // Seeder to create super admin
+import createSuperAdmin from '../app/seeders/superAdminSeeder';  // Seeder to create super admin
 import localFont from "next/font/local"; // Import local fonts
 import { AuthProvider } from './context/AuthContext'; // Authentication context provider
 import Header from './components/Header'; // Sticky header component
 import './globals.css'; // Include global styles
 
-// await createSuperAdmin();
+await createSuperAdmin();
 
 // Import fonts locally using Next.js font system
 const geistSans = localFont({

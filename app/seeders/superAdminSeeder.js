@@ -24,9 +24,6 @@ const createSuperAdmin = async () => {
       isActive: true, // Make sure it's active
       isBlocked: false, // Super admin is not blocked
       status: '1', // Approved status
-      requestedAt: Math.floor(Date.now() / 1000), // Current timestamp
-      registeredAt: Math.floor(Date.now() / 1000), // Current timestamp
-      updatedAt: Math.floor(Date.now() / 1000), // Current timestamp
     });
 
     console.log('Super admin created successfully.');
