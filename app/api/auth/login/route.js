@@ -5,6 +5,7 @@ import bcrypt from 'bcryptjs';
 import { NextResponse } from 'next/server';
 import Users from '../../../../models/User';  // Adjust path as needed
 import { Op } from 'sequelize';  // Import Sequelize operators
+import jwt from 'jsonwebtoken';
 
 export async function POST(req) {
   const { password, email } = await req.json();
@@ -39,7 +40,7 @@ export async function POST(req) {
 
     // You can return a success response along with some user details (without password)
     // Typically, you'd issue a token here (e.g., JWT) for the user session
-    const userResponse = {
+    const userData = {
       id: user.id,
       username: user.username,
       email: user.email,
@@ -47,8 +48,14 @@ export async function POST(req) {
       isActive: user.isActive,
       isBlocked: user.isBlocked,
     };
+    // Create JWT token with user data
+    const token = jwt.sign(
+      { userData },  // User data to include in the token
+      process.env.JWT_SECRET,  // Secret key for signing the JWT
+      { expiresIn: '1d' }  // Expiry time for the token (1 day)
+    );
 
-    return NextResponse.json({ msg: 'Login successful', user: userResponse }, { status: 200 });
+    return NextResponse.json({ msg: 'Login successful', auth_token: token }, { status: 200 });
 
   } catch (err) {
     console.error(err);

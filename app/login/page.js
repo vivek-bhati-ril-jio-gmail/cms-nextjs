@@ -24,7 +24,7 @@ export default function Login() {
     const data = await res.json();
 
     if (res.ok) {
-      document.cookie = `auth_token=${data.jwt}; path=/; max-age=${60 * 60}`; // Store JWT token in cookie
+      document.cookie = `auth_token=${data.auth_token}; path=/; max-age=${60 * 60}`; // Store JWT token in cookie
       router.push('/admin/dashboard'); // Redirect user to dashboard
     } else {
       setError(data.msg); // Set error message if login failed

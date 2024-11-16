@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import jwt from 'jsonwebtoken';  // Import jwt from the jsonwebtoken package
 
 const Header = () => {
   const [user, setUser] = useState(null); // Store user state
@@ -11,7 +12,17 @@ const Header = () => {
     const authToken = document.cookie.split(';').find(c => c.trim().startsWith('auth_token='));
 
     if (authToken) {
-      setUser({ role: 'authenticated' });
+      // Extract the token value
+      const token = authToken.split('=')[1];
+      
+      // Decode the token to get the user data
+      const decoded = jwt.decode(token, process.env.JWT_SECRET);  // Decode the token
+
+      if (decoded && decoded.userData) {
+        setUser(decoded.userData);  // Store the decoded user data (e.g., id, email, role)
+      } else {
+        setUser(authToken);  // If the token is invalid or doesn't contain user data, clear user state
+      }
     } else {
       setUser(null);
     }
@@ -31,7 +42,7 @@ const Header = () => {
       </div>
       <nav>
         <ul>
-          {user ? (
+          {user ? ( ( user.role === 'super_admin' ? (
             <>
               <li><a href="/admin/dashboard">Dashboard</a></li>
               <li><a href="/admin/posts">Post List</a></li>
@@ -40,6 +51,10 @@ const Header = () => {
               <li><button onClick={handleLogout}>Logout</button></li>
             </>
           ) : (
+            <>
+              <li><a href="/posts">{user}</a></li>
+            </>
+            )) ) : (
             <>
               <li><a href="/login">Login</a></li>
               <li><a href="/signup">Sign Up</a></li>
