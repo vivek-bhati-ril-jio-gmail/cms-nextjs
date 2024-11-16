@@ -121,11 +121,6 @@
   background-color: #1e6b8e;
 }
 
-/* Placeholder styling */
-input::placeholder {
-  color: #bbb;
-}
-
 /* Responsive styling */
 @media (max-width: 768px) {
   .dashboardContainer {
