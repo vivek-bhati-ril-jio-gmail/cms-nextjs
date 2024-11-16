@@ -86,3 +86,16 @@ a {
 .sticky-header nav ul li button:hover {
   color: #f0f0f0;
 }
+
+/* Placeholder styling */
+input::placeholder {
+  color: #bbb;
+}
+
+input:checked + .slider {
+  background-color: #4CAF50;
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}

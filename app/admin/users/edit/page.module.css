@@ -99,14 +99,6 @@
   transition: 0.4s;
 }
 
-input:checked + .slider {
-  background-color: #3498db;
-}
-
-input:checked + .slider:before {
-  transform: translateX(26px);
-}
-
 /* Buttons */
 .formButtons button {
   width: 100%;
